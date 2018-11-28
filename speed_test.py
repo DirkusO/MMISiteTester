@@ -7,6 +7,6 @@ import httplib2
 def load_speed():
     t = timeit.Timer("h.request('https://wwauth.multiply.co.za',headers={'cache-control':'no-cache'})",
                      "from httplib2 import Http; h=Http()")
-    times = t.repeat(10, 1)
-    times = round(sum(times) / 10, 1)
+    times = t.repeat(20, 1)
+    times = round(sum(times) / 20, 1)
     return times
