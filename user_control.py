@@ -10,10 +10,6 @@ control.page_shot('mobile_dashboard')
 
 control.nav_to('/my-engaged/safety/safe-dayz/safe-dayz-dashboard')
 
-control.desktop()
-control.screen_shot('desktop_safedayz_dashboard')
 
-control.btn_with_text('FIND OUT MORE ABOUT SHORT-TERM INSURANCE REWARDS')
-control.screen_shot('final')
 
 control.end()
