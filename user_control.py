@@ -1,6 +1,8 @@
 from browser_controller import browser_control as control
 from mmi_data import credentials as cred
 
+# user control here
+
 control.login(username=cred.pvt_username, password=cred.pvt_password)
 
 control.mobile()
