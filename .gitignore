@@ -215,4 +215,4 @@ pip-selfcheck.json
 # End of https://www.gitignore.io/api/python,pycharm
 
 ./screenshots
-./mmi_data/credentials
+./mmi_data
