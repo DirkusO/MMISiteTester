@@ -10,6 +10,4 @@ control.page_shot('mobile_dashboard')
 
 control.nav_to('/my-engaged/safety/safe-dayz/safe-dayz-dashboard')
 
-
-
 control.end()
