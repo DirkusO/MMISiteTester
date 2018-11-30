@@ -1,6 +1,7 @@
 import os
 import datetime
 import time
+import sys
 
 from browser_controller.speed_test import load_speed
 
@@ -12,6 +13,7 @@ browser = Browser()
 now = datetime.datetime.now()
 
 print(colored('[###]', 'white'), colored('--------------------------------------------------------------', 'white'))
+print(colored('[###]', 'white'), colored('Opening Browser', 'red'))
 print(colored('[###]', 'white'), colored('Evaluating Browser Load Speed... please wait', 'red'))
 load_speed = load_speed() + 1
 print(colored('[###]', 'white'), colored('Page Load Speed Currently At {0} second(s)'.format(load_speed), 'red'))
@@ -25,7 +27,7 @@ def screen_shot(name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at screen_shot()', 'red'))
-        end()
+        sys.exit()
 
 
 def page_shot(page_name):
@@ -44,7 +46,7 @@ def page_shot(page_name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at page_shot()', 'red'))
-        end()
+        sys.exit()
 
 
 def refresh():
@@ -56,7 +58,7 @@ def refresh():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at refresh()', 'red'))
-        end()
+        sys.exit()
 
 
 def desktop():
@@ -67,7 +69,7 @@ def desktop():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at desktop()', 'red'))
-        end()
+        sys.exit()
 
 
 def tablet():
@@ -78,7 +80,7 @@ def tablet():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at tablet()', 'red'))
-        end()
+        sys.exit()
 
 
 def mobile():
@@ -89,25 +91,29 @@ def mobile():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at mobile()', 'red'))
-        end()
+        sys.exit()
 
 
 def login(username, password):
     try:
-        print(colored('[###]', 'white'), colored('Opening Browser', 'red'))
         print(colored('[###]', 'white'), colored('Logging in with {0}'.format(username), 'red'))
         browser.visit(URL)
         browser.find_by_text('LOGIN').click()
         browser.fill('username', username)
         browser.fill('password', password)
         browser.find_by_value('').click()
+        if browser.evaluate_script('document.body.textContent.search("Oops!");') >= 1:
+            print(colored('[WAR]', 'yellow'), colored('Failed To Log In', 'yellow'))
+            print(colored('[###]', 'white'),
+                  colored('--------------------------------------------------------------', 'white'))
+            sys.exit()
         print(colored('[LOG]', 'white'), colored('Waiting For Page To Load... wait a few seconds', 'yellow'))
         time.sleep(load_speed)
         return 0
     except:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at login()', 'red'))
-        end()
+        sys.exit()
 
 
 def btn_with_text(text):
@@ -117,7 +123,7 @@ def btn_with_text(text):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at btn_with_text()', 'red'))
-        end()
+        sys.exit()
 
 
 def scroll_to_class(class_name):
@@ -127,7 +133,7 @@ def scroll_to_class(class_name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at scroll_to_class()', 'red'))
-        end()
+        sys.exit()
 
 
 def scroll_to_id(id_name):
@@ -137,7 +143,7 @@ def scroll_to_id(id_name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at scroll_to_id()', 'red'))
-        end()
+        sys.exit()
 
 
 def nav_to(new_page='/engaged/home'):
@@ -149,46 +155,26 @@ def nav_to(new_page='/engaged/home'):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at nav_to()', 'red'))
-        end()
+        sys.exit()
 
 
 def test_service():
     try:
         print(colored('[LOG]', 'white'), colored('Testing Page Service Condition', 'blue'))
-        if browser.find_by_text('Service Temporarily Unavailable') or browser.find_by_text('Service Unavailable'):
-            print(colored('[WAR]', 'yellow'), colored('Page Service Temporarily Unavailable', 'yellow'))
+        if browser.evaluate_script('document.body.textContent.search("nginx");') >= 1:
+            print(colored('[WAR]', 'yellow'), colored('Page Bounce or nginx down', 'yellow'))
+        elif browser.evaluate_script('document.body.textContent.search("Service Temporarily Unavailable");') >= 1:
+            print(colored('[WAR]', 'yellow'), colored('Service Temporarily Unavailable', 'yellow'))
+        elif browser.evaluate_script('document.body.textContent.search("Page Portlet Temporarily Unavailable");') >= 1:
+            print(colored('[WAR]', 'yellow'), colored('Page Portlet Temporarily Unavailable', 'yellow'))
+        elif browser.evaluate_script('document.body.textContent.search("Portlet temporarily unavailable");') >= 1:
+            print(colored('[WAR]', 'yellow'), colored('Portlet temporarily unavailable', 'yellow'))
         else:
             print(colored('[RES]', 'white'), colored('Condition Good', 'blue'))
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at test_service()', 'red'))
-        end()
-
-
-def test_portlet():
-    try:
-        print(colored('[LOG]', 'white'), colored('Testing Portlet Condition', 'blue'))
-        if browser.find_by_text('Portlet temporarily unavailable') or browser.find_by_text('Service Unavailable'):
-            print(colored('[WAR]', 'yellow'), colored('Page Portlet Temporarily Unavailable', 'yellow'))
-        else:
-            print(colored('[RES]', 'white'), colored('Condition Good', 'blue'))
-    except Exception:
-        print(colored('[ERR]', 'red'),
-              colored('Execution failed at test_portlet()', 'red'))
-        end()
-
-
-def test_wcm():
-    try:
-        print(colored('[LOG]', 'white'), colored('Testing WCM Component(s) Condition', 'blue'))
-        if browser.evaluate_script("!document.getElementsByClassName('lrpError')") is False:
-            print(colored('[WAR]', 'yellow'), colored('Page WCM Component(s) Temporarily Unavailable', 'red'))
-        else:
-            print(colored('[RES]', 'white'), colored('Condition Good', 'blue'))
-    except Exception:
-        print(colored('[ERR]', 'red'),
-              colored('Execution failed at test_wcm()', 'red'))
-        end()
+        sys.exit()
 
 
 def end():
