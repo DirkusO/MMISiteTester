@@ -27,6 +27,7 @@ def screen_shot(name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at screen_shot()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -46,6 +47,7 @@ def page_shot(page_name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at page_shot()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -58,6 +60,7 @@ def refresh():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at refresh()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -69,6 +72,7 @@ def desktop():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at desktop()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -80,6 +84,7 @@ def tablet():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at tablet()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -91,6 +96,7 @@ def mobile():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at mobile()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -106,6 +112,7 @@ def login(username, password):
             print(colored('[WAR]', 'yellow'), colored('Failed To Log In', 'yellow'))
             print(colored('[###]', 'white'),
                   colored('--------------------------------------------------------------', 'white'))
+            browser.quit()
             sys.exit()
         print(colored('[LOG]', 'white'), colored('Waiting For Page To Load... wait a few seconds', 'yellow'))
         time.sleep(load_speed)
@@ -113,6 +120,7 @@ def login(username, password):
     except:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at login()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -123,6 +131,7 @@ def btn_with_text(text):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at btn_with_text()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -133,6 +142,7 @@ def scroll_to_class(class_name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at scroll_to_class()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -143,6 +153,7 @@ def scroll_to_id(id_name):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at scroll_to_id()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -155,6 +166,7 @@ def nav_to(new_page='/engaged/home'):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at nav_to()', 'red'))
+        browser.quit()
         sys.exit()
 
 
@@ -174,6 +186,7 @@ def test_service():
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at test_service()', 'red'))
+        browser.quit()
         sys.exit()
 
 
