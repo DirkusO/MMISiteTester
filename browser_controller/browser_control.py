@@ -2,7 +2,7 @@ import os
 import datetime
 import time
 
-from speed_test import load_speed
+from browser_controller.speed_test import load_speed
 
 from splinter import Browser
 from termcolor import colored
@@ -149,6 +149,45 @@ def nav_to(new_page='/engaged/home'):
     except Exception:
         print(colored('[ERR]', 'red'),
               colored('Execution failed at nav_to()', 'red'))
+        end()
+
+
+def test_service():
+    try:
+        print(colored('[LOG]', 'white'), colored('Testing Page Service Condition', 'blue'))
+        if browser.find_by_text('Service Temporarily Unavailable') or browser.find_by_text('Service Unavailable'):
+            print(colored('[WAR]', 'yellow'), colored('Page Service Temporarily Unavailable', 'yellow'))
+        else:
+            print(colored('[RES]', 'white'), colored('Condition Good', 'blue'))
+    except Exception:
+        print(colored('[ERR]', 'red'),
+              colored('Execution failed at test_service()', 'red'))
+        end()
+
+
+def test_portlet():
+    try:
+        print(colored('[LOG]', 'white'), colored('Testing Portlet Condition', 'blue'))
+        if browser.find_by_text('Portlet temporarily unavailable') or browser.find_by_text('Service Unavailable'):
+            print(colored('[WAR]', 'yellow'), colored('Page Portlet Temporarily Unavailable', 'yellow'))
+        else:
+            print(colored('[RES]', 'white'), colored('Condition Good', 'blue'))
+    except Exception:
+        print(colored('[ERR]', 'red'),
+              colored('Execution failed at test_portlet()', 'red'))
+        end()
+
+
+def test_wcm():
+    try:
+        print(colored('[LOG]', 'white'), colored('Testing WCM Component(s) Condition', 'blue'))
+        if browser.evaluate_script("!document.getElementsByClassName('lrpError')") is False:
+            print(colored('[WAR]', 'yellow'), colored('Page WCM Component(s) Temporarily Unavailable', 'red'))
+        else:
+            print(colored('[RES]', 'white'), colored('Condition Good', 'blue'))
+    except Exception:
+        print(colored('[ERR]', 'red'),
+              colored('Execution failed at test_wcm()', 'red'))
         end()
 
 
