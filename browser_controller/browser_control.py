@@ -2,6 +2,7 @@ import os
 import datetime
 import time
 import sys
+import functools
 
 from browser_controller.speed_test import load_speed
 

@@ -14,7 +14,6 @@ control.test_service()
 def test_kit(url):
     control.nav_to(url)
     control.test_service()
-    control.test_service()
 
 
 def snapshot_kit(url):
